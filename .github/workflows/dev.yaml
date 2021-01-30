@@ -37,4 +37,4 @@ jobs:
           aws s3 cp \
             --recursive \
             --region us-east-1 \
-            dist s3://kjr-static-content/sites/victorynachos.com/dev/
+            dist/victory-nachos/ s3://kjr-static-content/sites/victorynachos.com/dev/

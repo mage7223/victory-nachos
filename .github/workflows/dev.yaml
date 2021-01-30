@@ -38,3 +38,4 @@ jobs:
             --recursive \
             --region us-east-1 \
             dist/victory-nachos/ s3://kjr-static-content/sites/victorynachos.com/dev/
+          aws cloudfront create-invalidation --distribution-id E1LISWFGXI75S3 --paths "/*"

@@ -1,0 +1,11 @@
+.bg {
+  width: 100%;
+  z-index: 0;
+}
+
+div.picsum-img-wrapper {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}

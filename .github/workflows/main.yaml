@@ -23,12 +23,6 @@ jobs:
       - name: Install
         run: npm install
 
-      - name: Lint
-        run: npm run lint
-
-      - name: Test
-        run: npm run test
-
       - name: Build
         run: npm run build
 
@@ -40,5 +34,5 @@ jobs:
           aws s3 cp \
             --recursive \
             --region us-east-1 \
-            dist s3://kjr-static-content/sites/victorynachos.com/dev/
-
+            dist/victory-nachos/ s3://kjr-static-content/sites/victorynachos.com/prod/
+          aws cloudfront create-invalidation --distribution-id E1LISWFGXI75S3 --paths "/*"

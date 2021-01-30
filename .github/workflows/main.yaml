@@ -1,32 +1,43 @@
-on: push
-name: Build Angular
+name: S3 Deploy
+on:
+  push:
+    branches:
+      - master
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
-
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout source code
+        uses: actions/checkout@master
 
       - name: Cache node modules
         uses: actions/cache@v1
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: npm install and npm run build
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+
+      - name: Install
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm run test
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_DEPLOY_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_DEPLOY_SECRET }}
         run: |
-          npm i
-          npm run build:prod
-      - name: Push Build to Releases
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: "dist/angular-githubaction/*"
-          token: ${{ secrets.VICTORY_NACHOS_DEPLOY }}
+          aws s3 cp \
+            --recursive \
+            --region us-east-1 \
+            dist s3://kjr-static-content/sites/victorynachos.com/prod/

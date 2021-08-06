@@ -18,14 +18,13 @@ import { GoogleTagManagerModule } from 'angular-google-tag-manager';
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    environment.production ?
     GoogleTagManagerModule.forRoot({
       id: environment.gtmID,
-    }): []
+    })
 
   ],
   providers: [
-    environment.production ? {provide: 'googleTagManagerId',  useValue: environment.gtmID}: []
+    {provide: 'googleTagManagerId',  useValue: environment.gtmID}
   ],
   bootstrap: [AppComponent]
 })

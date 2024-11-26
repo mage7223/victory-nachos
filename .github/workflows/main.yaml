@@ -19,9 +19,6 @@ jobs:
 
       - name: Cache node modules
         uses: actions/cache@v1
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
         with:
           path: node_modules
           key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
@@ -30,6 +27,9 @@ jobs:
             ${{ runner.OS }}-
 
       - name: Install
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
         run: npm install
 
       - name: Build

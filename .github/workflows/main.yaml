@@ -35,7 +35,6 @@ jobs:
 
       - name: Build Angular App
         run: npm run build-$BUILD_CONFIG
-
       - name: Setup AWS CLI
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -53,4 +52,4 @@ jobs:
             dist/victory-nachos/ s3://kjr-static-content/sites/victorynachos.com/$BUILD_CONFIG/
       - name: Clear CloudFront
         run: |
-          aws cloudfront create-invalidation --distribution-id E1LISWFGXI75S3 --region us-east-1 --paths  "/*" "/"
+          aws cloudfront create-invalidation --distribution-id E1LISWFGXI75S3 --region $AWS_REGION --paths  "/*" "/"

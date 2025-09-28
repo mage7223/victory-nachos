@@ -1,4 +1,2 @@
-<p>qr-code works!</p>
-
-<input type="text" ([Ngmodel])="qrPath"/>
-<canvas id="qrcanvas"> </canvas>
+<input type="text" [formControl]="qrPath" placeholder="Enter QR path" title="QR Path" class="input-url"/>
+<div #qrCodeContainer></div>

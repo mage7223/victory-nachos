@@ -2,17 +2,19 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import QRCodeStyling from 'qr-code-styling';
 import { Subscription } from 'rxjs';
+import { AutoselectDirective } from "../directives/autoselect.directive";
 
 @Component({
   selector: 'app-qr-code',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, AutoselectDirective],
   templateUrl: './qr-code.component.html',
   styleUrl: './qr-code.component.css'
 })
 export class QrCodeComponent implements AfterViewInit{
   @ViewChild('qrCodeContainer') qrCodeContainer: ElementRef;
   qrPath: FormControl = new FormControl('');
+  @ViewChild('qrPath') qrPathInput: ElementRef;
   private valueChangesSubscription : Subscription;
   qrCode: QRCodeStyling | undefined;
 
@@ -23,7 +25,6 @@ export class QrCodeComponent implements AfterViewInit{
     this.qrCode.update({ data: value });
 
     if (this.qrCodeContainer && this.qrCode) {
-      //this.qrCode.append(this.qrCodeContainer.nativeElement);
       this.qrCode.update({ data: value });
     } else {
       console.error('QR Code container or QR Code instance is not available.');

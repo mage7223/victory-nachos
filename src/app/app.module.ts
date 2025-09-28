@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { JumboBannerComponent } from './jumbo-banner/jumbo-banner.component';
 import { GoogleTagManagerModule } from 'angular-google-tag-manager';
+import { QrCodeComponent } from './qr-code/qr-code.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,8 +18,10 @@ import { GoogleTagManagerModule } from 'angular-google-tag-manager';
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     NgbModule,
+    QrCodeComponent,
     GoogleTagManagerModule.forRoot({
       id: environment.gtmID,
     })
